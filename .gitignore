@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+config.json
+
+.auth-server
+
+.node_modules
+node_modules
