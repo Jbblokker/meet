@@ -65,7 +65,9 @@ module.exports.getAccessToken = async (event) => {
     //respond with OAuth Token
     return {
       statusCode: 200,
+      headers:{
       body: JSON.stringify(token),
+      },
     };
 
   })
@@ -75,7 +77,9 @@ module.exports.getAccessToken = async (event) => {
     console.error(err);
     return {
       statusCode: 500,
+      headers: {
       body: JSON.stringify(err),
+      },
     };
   })
 };
@@ -113,7 +117,9 @@ module.exports.getCalendarEvents = async (event) => {
     //respond with Oauth token
     return {
       statusCode: 200,
+      headers:{
       body: JSON.stringify({ events: resultingClientExists.data.itmes })
+      },
     };
   })  
   
@@ -122,7 +128,9 @@ module.exports.getCalendarEvents = async (event) => {
     console.error(err);
     return {
       statusCode:500,
+      headers: {
       body:JSON.stringify(err),
+      },
     };
   })  
   
