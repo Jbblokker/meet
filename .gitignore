@@ -27,4 +27,5 @@ config.json
 .auth-server
 
 .node_modules
+.vscode
 node_modules
