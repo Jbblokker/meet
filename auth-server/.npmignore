@@ -5,6 +5,6 @@ jspm_packages
 # Serverless directories
 .serverless
 # enviroment variables 
-config.json
+.config.json
 
 .auth-server
