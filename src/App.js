@@ -6,7 +6,7 @@ import { mockData } from './mock-data';
 import { extraLocations, getEvents } from './api';
 import NumberOfEvents from './NumberOfEvents';
 
-class App extends Component {
+class App extends React.Component {
     state = {
         events:[],
         locations:[],
@@ -77,4 +77,4 @@ class App extends Component {
 }
 
 export default App;
-export const getEvents = async () => { return mockData; };
+//export const getEvents = async () => { return mockData; };

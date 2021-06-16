@@ -1,8 +1,7 @@
 const { google } = require("googleapis");
-const { resultingClientExists } = require("workbox-core/_private");
 const OAuth2 = google.auth.OAuth;
 const calendar = google.calendar("v3");
-const SCOPES = ["https:// www.googleapis.com/auth/calendar.readonly"];
+const SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 
 
 const credentials = {
@@ -13,8 +12,8 @@ const credentials = {
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-  redirect_uris: ["https://Jbblokker.github.io/meet/"],
-  javascript_origins: ["https://Jbblokker.github.io", "http://localhost:3000"],
+  redirect_uris: ["https://jbblokker.github.io/meet/","http://localhost:3000"],
+  javascript_origins: ["https://jbblokker.github.io", "http://localhost:3000"],
 };
 const { client_secret, client_id, redirect_uris, calendar_id } = credentials;
 const oAuth2Client = new google.auth.OAuth2(
@@ -42,13 +41,13 @@ module.exports.getAuthURL = async () => {
 };
 
 module.exports.getAccessToken = async (event) => {
-  const oAuthClient = new google.auth.OAuth2(
+  const oAuth2Client = new google.auth.OAuth2(
     client_id,
     client_secret,
     redirect_uris[0]
   );
 
-    module.exports.getAccessToken = async (event) => {
+  
   //decode auth code extracted from the url query
   const code = decodeURIComponent(`${event.pathParameters.code}`);
 
@@ -65,8 +64,9 @@ module.exports.getAccessToken = async (event) => {
     //respond with OAuth Token
     return {
       statusCode: 200,
-      headers:{
       body: JSON.stringify(token),
+      headers:{
+        "Access-Control-Allow-Origin": "*",
       },
     };
 
@@ -77,8 +77,9 @@ module.exports.getAccessToken = async (event) => {
     console.error(err);
     return {
       statusCode: 500,
-      headers: {
       body: JSON.stringify(err),
+      headers: {
+        "Access-Control-Allow-Origin": "*",
       },
     };
   })
@@ -92,6 +93,7 @@ module.exports.getCalendarEvents = async (event) => {
   );
 
   //setting the credentials for the authclient
+  const access_token = decodeURIComponent(event.pathParameters.access_token);
   oAuth2Client.setCredentials({ access_token });  
 
   return new Promise((resolve, reject) =>{
@@ -113,12 +115,13 @@ module.exports.getCalendarEvents = async (event) => {
       );
     })
 
-  .then((token) => {
+  .then((results) => {
     //respond with Oauth token
     return {
       statusCode: 200,
+      body: JSON.stringify({ events:results.data.items }),
       headers:{
-      body: JSON.stringify({ events: resultingClientExists.data.itmes })
+            "Access-Control-Allow-Origin": "*",
       },
     };
   })  
@@ -128,8 +131,9 @@ module.exports.getCalendarEvents = async (event) => {
     console.error(err);
     return {
       statusCode:500,
-      headers: {
       body:JSON.stringify(err),
+      headers: {
+        "Access-Control-Allow-Origin": "*",
       },
     };
   })  

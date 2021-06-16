@@ -1,3 +1,5 @@
+import { mockData } from './mock-data';
+
 export const extraLocations = (events) => {
     var extraLocations = events.map((event) => event.location);
 
@@ -5,3 +7,5 @@ export const extraLocations = (events) => {
     return locations;
     
 }
+
+export const getEvents = async () => { return mockData; };

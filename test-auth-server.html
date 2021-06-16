@@ -40,7 +40,7 @@
             const getCodeElement = document.getElementById("getCode");
             const resultElement = document.getElementById("result");
             const resultLink = document.getElementById("authURL");
-            const getAUthURL = "https://bwfk4ydyl6.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-urlcd";
+            const getAuthURL = "https://bwfk4ydyl6.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-url";
 
             getCodeElement.onclick = function () {
                 fetch(getAuthURL)
@@ -58,14 +58,15 @@
             };
             //...................STEP 2
             const codeValue = document.getElementById("code");
-            const getAccessToken = document.getElementId("accessToken");
-            const getToken = "https://bwfk4ydyl6.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-url";
+            const accessTokenElement = document.getElementById("accessToken");
+            getAccessToken = document.getElementById("getToken");
+            const getToken = "https://bwfk4ydyl6.execute-api.us-east-1.amazonaws.com/dev/api/token";
             
             getAccessToken.onclick = function () {
                 let code = codeValue.value;
                 //if the auth code is not URL-encoded, then URL-encode it. 
                 if (decodeURIComponent(code) === code) {
-                    code = encodeUROComponent(codeValue.value);
+                    code = encodeURIComponent(codeValue.value);
                 }
                 const getTokenRequest = getToken + "/" + code;
                 fetch(getTokenRequest)
@@ -86,7 +87,7 @@
                 const eventRequest = getCalendarEvents + "/" + access_token;
                 fetch(eventRequest)
                     .then(function (response) {
-                        return response.josn();
+                        return response.json();
                     })
                     .then(function (json) {
                         events.innerText = JSON.stringify(json, null, 2);
