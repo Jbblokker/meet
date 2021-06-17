@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
-import { mockData } from './mock-data';
 import { extraLocations, getEvents } from './api';
 import NumberOfEvents from './NumberOfEvents';
 
@@ -56,9 +55,7 @@ class App extends React.Component {
     render() {
         return(
             <div className="App">
-                <CitySearch 
-                     locations={this.state.locations}
-               />
+               
                 <EventList
                      events={this.state.events} 
                />
