@@ -25,11 +25,16 @@
     "workbox-range-requests": "^5.1.4",
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
-    "workbox-streams": "^5.1.4"
+    "workbox-streams": "^5.1.4",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2"
+
   },
   "devDependencies": {
     "@babel/preset-react": "^7.13.13",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "jest-cucumber": "^3.0.1",
+    "jest-dom": "^4.0.0",
     "puppeteer": "^10.0.0"
   },
   "scripts": {
