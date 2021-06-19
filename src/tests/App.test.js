@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import App from '../App';
 import EventList from '../EventList';
 import CitySearch from '../CitySearch';
+import NumberOfEvents from '../NumberOfEvents';
 import { mockData } from '../mock-data';
 import { extraLocations, getEvents } from '../api';
 import { getCalendarEvents } from '../../auth-server/handler';
@@ -61,8 +62,7 @@ describe('<App /> integration', () =>{
 
     test('get list of all events when user selects " see all cities"', async () => {
         const AppWrapper = mount(<App />);
-        const suggestionsItems = AppWrapper.find(CitySearch).find('.suggetions li');
-        await suggestionsItems.at(suggestions.length - 1).simulate ('click');
+        const suggestionsItems = AppWrapper.find(CitySearch).find('.suggestions li');
         const allEvents = await getEvents();
         expect(AppWrapper.state('events')).toEqual(allEvents);
         AppWrapper.unmount();

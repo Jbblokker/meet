@@ -35,9 +35,10 @@ handleInputChanged = (event) => {
             onChange={this.handleInputChanged}
             placeholder='Search for a city'
             onFocus={() => { this.setState({ showSuggestions: true}) }}
+            onClick={() => { this.setState({showSuggestions: true}) }}
           />
           {this.state.suggestions.length >= 1 ?  (
-          <ul className="suggestions" style={this.state.showSuggestions ? {} : { display: 'none' }}>
+          <ul key="suggestions" style={this.state.showSuggestions ? {} : { display: "none" }}>
           {this.state.suggestions.map((suggestion) => (
                   <li key={suggestion} onClick={() => this.handleItemClicked(suggestion)}>{suggestion}</li>
               ))}

@@ -4,13 +4,12 @@ import CitySearch from '../CitySearch';
 import { mount, shallow } from 'enzyme';
 import { loadFeature, defineFeature } from 'jest-cucumber';
 import { mockData } from '../mock-data';
+import { extractLocations, getEvents } from '../api';
 
 const feature = loadFeature('./src/features/filterEventsByCity.feature');
-let AppWrapper;
-let CitySearchWrapper;
 //feature 1 filter events by city
 defineFeature(feature, test => {
-    //scenario 1 when a user hasen't searched for a city, show all events 
+    //scenario 1 when a user has not searched for a city, show all events 
         test('When user hasn’t searched for a city, show upcoming events from all cities.',
          ({ given,
              when,
