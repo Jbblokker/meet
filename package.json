@@ -26,7 +26,8 @@
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
     "workbox-streams": "^5.1.4",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2"
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
+    "jest-cucumber": "^3.0.1"
 
   },
   "devDependencies": {
