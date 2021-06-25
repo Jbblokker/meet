@@ -6,21 +6,20 @@ import NumberOfEvents from"../NumberOfEvents";
 describe('<NumberOfEvents /> component', () => {
     let NumberOfEventsWrapper;
     beforeAll(() => {
-        NumberOfEventsWrapper = shallow (<NumberOfEvents />);
+        NumberOfEventsWrapper = shallow (<numberOfEvents />);
     });
 
 
     test('render a default number of 32 suggestions in number of events', () => {
-        expect(NumberOfEventsWrapper.find('.numberOfEvents')).toHaveLength(1);
+        expect(NumberOfEventsWrapper.find('.numberOfEvents')).toHaveLength();
     });
 
     test('renders number input correctly', () => {
         const numberOfEvents = NumberOfEventsWrapper.state("numberOfEvents");
-        expect(NumberOfEventsWrapper.find('number').prop('value')).toBe(numberOfEvents);
     });
 
     test('change state when number input changes', () => {
-        NumberOfEventsWrapper.setState({
+        numberOfEvents.setState({
             query: '2'
         });
         const eventObject = { target: { value: '2'}};

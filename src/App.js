@@ -2,15 +2,30 @@ import React from 'react';
 import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
-import { extraLocations, getEvents } from './api';
+import { extractLocations, getEvents } from './api';
 import NumberOfEvents from './NumberOfEvents';
-
+import { mockData } from './mock-data';
 class App extends React.Component {
     state = {
         events:[],
         locations:[],
         numberOfEvents: 32
 
+    }
+
+    updateEvents = (location, eventCount) => {
+        getEvents().then((events) => {
+            const locationEvents =
+              location === "all"
+                ? events.slice(0, numberOfEvents)
+                : events.filter((event) => event.location === location);
+            if (this.mounted) {
+            this.setState({
+                events: locationEvents,
+                numberOfEvents: eventCount,
+            });
+          }
+        }); 
     }
     
     componentDidMount() {
@@ -19,7 +34,7 @@ class App extends React.Component {
             if (this.mounted) {
             this.setState({ 
                  events: events.slice(0, this.state.numberOfEvents),
-                 locations: extraLocations(events),
+                 locations: extractLocations(events),
         });
        }
       }); 
@@ -27,29 +42,6 @@ class App extends React.Component {
 
     componentWillUnmount(){
         this.mounted = false;
-    }
-
-    updateEvents = (location, eventCount) => {
-        let locationEvents;
-        getEvents().then((events)=> {
-            locationEvents = events;
-            if (location === 'all' && eventCount ===0) {
-                locationEvents = events;
-            }
-            else if (location !== 'all' && eventCount === 0){
-                locationEvents = events.filter((event) => event.location === location);
-            }
-            else if (location === '' && eventCount > 0) {
-                locationEvents = events.slice( 0, eventCount);
-            }
-            else if (location === '' && eventCount === '') {
-                locationEvents = events;
-            }
-            this.setState({
-                events: locationEvents,
-                numberOfEvents: eventCount,
-            });
-        }); 
     }
 
     render() {
@@ -74,4 +66,3 @@ class App extends React.Component {
 }
 
 export default App;
-//export const getEvents = async () => { return mockData; };

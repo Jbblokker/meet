@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import CitySearch from '../CitySearch';
 import { mockData } from '../mock-data';
 import { extraLocations } from '../api';
-import { app } from "../App";
+
 
 describe('<CitySearch /> component', () => {
     let locations, CitySearchWrapper;
@@ -26,7 +26,7 @@ describe('<CitySearch /> component', () => {
           query: 'Munich'
       });
       const eventObject = { target: { value: 'Berlin'}};
-      CitySearchWrapper.find('city').stimulate('change', eventObject);
+      CitySearchWrapper.find('city').change (eventObject);
       expect(CitySearchWrapper.state('query')).toBe('Berlin');
   });
 
@@ -58,22 +58,22 @@ describe('<CitySearch /> component', () => {
   test("selecting a suggestion should change query state", () => {
       CitySearchWrapper.setState({ query:'Berlin' });
       const suggestions = CitySearchWrapper.state('.suggestions');
-      CitySearchWrapper.find('.suggestions li').at(0).then('click');
+      CitySearchWrapper.find('.suggestions li').at(0).onClick;
       expect(CitySearchWrapper.state("query")).toBe(suggestions [0]);
   });
     test("selecting CitySearch input reveals the suggestion list",() => {
         CitySearchWrapper.find('.city').simulate('focus');
-        expect (CitySearchWrapper.state('.showSuggestions')).toBe(true);
+        expect (CitySearchWrapper.state('showSuggestions')).toBe(true);
         expect(CitySearchWrapper.find('.suggestions').prop('style')).not.toEqual({ display: 'none'});
     });
 
-    test("selecting a suggestion should hid the suggestions list", () => {
+    test("selecting a suggestion should hide the suggestions list", () => {
         CitySearchWrapper.setState({
             query: 'Berlin',
             showSuggestions: undefined
         });
-        CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
-        expect(CitySearchWrapper.state('.showSuggestions')).toBe(false);4
+        CitySearchWrapper.find('.suggestions li').at(0).onClick;
+        expect(CitySearchWrapper.state('showSuggestions')).toEqual(false);
         expect(CitySearchWrapper.find('.suggestions') .prop('style')).toEqual({ display: 'none '});
 
     });
