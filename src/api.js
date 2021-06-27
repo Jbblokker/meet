@@ -16,7 +16,7 @@ if(!accessToken || tokenCheck.error) {
         const { authUrl } = results.data;
         return (window.location.href = authUrl);
     }
-    return code && getAccessToken(code);
+    return code && getToken(code);
 }
 return accessToken;
 };
@@ -74,7 +74,7 @@ export const getEvents = async () => {
 
  if (token) {
      removeQuery();
-     const url = 'my api endpoint' + '/' + token;
+     const url = `https://bwfk4ydyl6.execute-api.us-east-1.amazonaws.com/dev/api/get-events/${token}` 
      const result = await axios.get(url);
      if (result.data) {
          var locations = extractLocations(result.data.events);

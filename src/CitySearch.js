@@ -54,10 +54,11 @@ handleInputChanged = (event) => {
           />
           
           {this.state.suggestions.length >= 1 ?  (
-          <ul className="suggestions" key={suggestion} style={this.state.showSuggestions ? {} : { display: "none" }}>
+          <ul className="suggestions" style={this.state.showSuggestions ? {} : { display: "none" }}>
           {this.state.suggestions.map((suggestion) => (
                   <li
-                     key={suggestion}
+                    className='matchSuggestions'
+                     //key={suggestions}
                      onClick={() => this.handleItemClicked(suggestion)}
                   >
                      {suggestion}
@@ -65,7 +66,7 @@ handleInputChanged = (event) => {
               ))}
               <li
                className='matchSuggestions' 
-               key={suggestion} 
+               //key={suggestion} 
                onClick={() => this.handleItemClicked(suggestion)}>
               <b>See all cities</b>
               </li>

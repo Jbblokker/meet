@@ -2,13 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import CitySearch from '../CitySearch';
 import { mockData } from '../mock-data';
-import { extraLocations } from '../api';
+import { extractLocations } from '../api';
 
 
 describe('<CitySearch /> component', () => {
     let locations, CitySearchWrapper;
     beforeAll(() => {
-      locations= extraLocations(mockData);
+      locations= extractLocations(mockData);
       CitySearchWrapper = shallow(<CitySearch locations={locations} updateEvents={() => {}} />);
   });
 
@@ -31,7 +31,7 @@ describe('<CitySearch /> component', () => {
   });
 
   test('render list of suggestions correctly', () => {
-      const locations = extraLocations(mockData);
+      const locations = extractLocations(mockData);
       const CitySearchWrapper = shallow(<CitySearch />);
       CitySearchWrapper.setState({ suggestions: locations });
       const suggestions = CitySearchWrapper.state('.suggestions');

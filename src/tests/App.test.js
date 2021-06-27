@@ -5,7 +5,7 @@ import EventList from '../EventList';
 import CitySearch from '../CitySearch';
 import NumberOfEvents from '../NumberOfEvents';
 import { mockData } from '../mock-data';
-import { extraLocations, getEvents } from '../api';
+import { extractLocations, getEvents } from '../api';
 import { getCalendarEvents } from '../../auth-server/handler';
 
 
@@ -48,7 +48,7 @@ describe('<App /> integration', () =>{
     test('get list of events matching the city selected by the user', async () => {
         const AppWrapper = mount(<App />);
         const CitySearchWrapper = AppWrapper.find(CitySearch);
-        const locations = extraLocations(mockData);
+        const locations = extractLocations(mockData);
         CitySearchWrapper.setState({ suggestions: locations });
         const suggestions = CitySearchWrapper.state('suggestions');
         const selectedIndex = Math.floor(Math.random() * (suggestions.length));
@@ -62,7 +62,8 @@ describe('<App /> integration', () =>{
 
     test('get list of all events when user selects " see all cities"', async () => {
         const AppWrapper = mount(<App />);
-        const suggestionsItems = AppWrapper.find(CitySearch).find('.suggestions li');
+        const suggestionItems = AppWrapper.find(CitySearch).find('.suggestions li');
+        await suggestionItems.at(suggestionItems.length -1).simulate('click');
         const allEvents = await getEvents();
         expect(AppWrapper.state('events')).toEqual(allEvents);
         AppWrapper.unmount();
