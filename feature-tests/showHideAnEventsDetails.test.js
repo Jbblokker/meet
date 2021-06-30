@@ -1,8 +1,8 @@
 import React from 'react';
-import App from '../App';
-import Event from'../Event';
+import App from '../src/App';
+import Event from'../src/Event';
 import { loadFeature, defineFeature } from 'jest-cucumber';
-import { mockData } from '../mock-data';
+import { mockData } from '../src/mock-data';
 import { mount, shallow } from 'enzyme';
 
 const feature = loadFeature('./src/features/showHideAnEventsDetails.feature');
@@ -48,7 +48,7 @@ defineFeature(feature, (test) => {
             expect(EventWrapper.find(".EventDetails")).toHaveLength(1);
         });
     });
-
+    //scenario 3
     test('User can collapse an event to hide its details', 
     ({ given, 
        when, 

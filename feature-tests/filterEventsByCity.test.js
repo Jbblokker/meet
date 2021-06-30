@@ -34,7 +34,7 @@ defineFeature(feature, test => {
            when,
            then 
         }) => {
-          given(' the user is in the main page', () => {
+          given('the user is in the main page', () => {
               CitySearchWrapper = shallow(<CitySearch updateEvents={() => {}} locations={locations} />);
           });
       
@@ -42,7 +42,7 @@ defineFeature(feature, test => {
       
           });
       
-          then('the user should receive a list of suggested cities that match what they’ve typed', () => {
+          then('the user will see a list of suggested cites that match what the user has typed', () => {
       
           });
         });
@@ -50,30 +50,21 @@ defineFeature(feature, test => {
       //scenario 3 a user can select a city form a suggested list
         test('User can select a city from the suggested list',
          ({ given,
-             and,
              when,
              then 
          }) => {
-         given('user was typing "Berlin" in the city textbox', async () => {
-           AppWrapper = await mount(<App />);
+          given('the user is typing “ example- Berlin, Germany” in the search box and a list of matching cities shows up', () => {
+          AppWrapper = await mount(<App />);
            AppWrapper.find('.city').simulate('change', { target: { value: 'Berlin' } });
-         });;
+         });
       
-          and ('the list of suggested cities is showing', () => {
-            AppWrapper.update();
-            expect(AppWrapper.find('.suggestions li')).toHaveLength(2);
-        });
-      
-          when('the user selects a city (e.g., “Berlin, Germany”) from the list', () => {
+          when('the user selects a city from the suggested list', () => {
       
           });
       
-          then('their city should be changed to that city (i.e., “Berlin, Germany”)', () => {
+          then('it will take the user to another screen with the selected city along wit , () => {
       
           });
       
-          and('the user should receive a list of upcoming events in that city', () => {
-      
-          });
         });
       });

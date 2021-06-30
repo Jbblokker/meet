@@ -1,8 +1,8 @@
 import React from 'react';
-import App from '../App';
+import App from '../src/App';
 import { mount, shallow } from 'enzyme';
 import { loadFeature, defineFeature } from 'jest-cucumber';
-import { mockData } from '../mock-data';
+import { mockData } from '../src/mock-data';
 
 const feature = loadFeature('./src/features/specifyTheNumberOfEvents.feature');
 //specify the number of events
@@ -21,7 +21,7 @@ defineFeature(feature, (test) => {
         });
 
         then('the default number of 32 will be applied to only show 32 events in that search', () => {
-            expect(AppWrapper.state("events").length).toBe(mockData.length);
+            expect(AppWrapper.state("events").length).toBe(32);
         });
     });
     //scenario 2

@@ -58,7 +58,7 @@ handleInputChanged = (event) => {
           {this.state.suggestions.map((suggestion) => (
                   <li
                     className='matchSuggestions'
-                     //key={suggestions}
+                     key={suggestion}
                      onClick={() => this.handleItemClicked(suggestion)}
                   >
                      {suggestion}
@@ -66,8 +66,8 @@ handleInputChanged = (event) => {
               ))}
               <li
                className='matchSuggestions' 
-               //key={suggestion} 
-               onClick={() => this.handleItemClicked(suggestion)}>
+               key="all" 
+               onClick={() => this.handleItemClicked("all")}>
               <b>See all cities</b>
               </li>
           </ul>

@@ -58,7 +58,7 @@ class App extends React.Component {
                />
                 <NumberOfEvents
                     numberOfEvents={this.state.numberOfEvents}
-                    updateEvents={this.updateEvents}
+                    updateEvents={this.updateNumberEvents}
                />
             </div>
         )
