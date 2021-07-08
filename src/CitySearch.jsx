@@ -3,41 +3,40 @@ import React, { Component } from 'react';
 class CitySearch extends Component {
   constructor() {
     super();
-      
     this.state = {
-        query:'',
-        suggestions: [],
-        showSuggestions: false
-    };  
+      query: '',
+      suggestions: [],
+      showSuggestions: undefined,
+    };
+  }
+
+  // update state of city in text input
+  handleInputChanged(event) {
+    const { value } = event.target;
+    const { suggestions } = this.props.locations.filter((location) => {
+    return location.toUpperCase().indexOf(value.toUpperCase())> -1;});
+    setState({
+      query: value,
+      suggestions,
+    });
+  }
+
+  handleItemClicked(suggestion) {
+    this.setState({
+      query: suggestion,
+      showSuggestions: false,
+    });
+
+    this.props.updateEvents(suggestion, this.props.numberOfEvents);
   }
 
   listUpdate() {
-    const suggestions = this.props.locations.filter((location) => {
-      return location
+    const suggestions = this.props.locations.filter((location) { return location
     });
     this.setState({
       suggestions,
     });
   }
-
-// update state of city in text input
-handleInputChanged = (event) => {
-  const value = event.target.value;
-      const suggestions = this.props.locations.filter((location) =>
-      { return location.toUpperCase().indexOf(value.toUpperCase())> -1;})
-      this.setState({ 
-        query: value, 
-        suggestions 
-      });
-  };
-
-  handleItemClicked = (suggestion) => {
-      this.setState({ 
-        query: suggestion, 
-        showSuggestions: false, });
-
-      this.props.updateEvents(suggestion, this.props.numberOfEvents);
-  };
 
   render() {
     return (
@@ -52,7 +51,8 @@ handleInputChanged = (event) => {
             onFocus={() => { this.setState({ showSuggestions: true}) }}
             onClick={() => { this.setState({showSuggestions: true}) }}
           />
-          
+                 <div className="suggestions"/>
+
           {this.state.suggestions.length >= 1 ?  (
           <ul className="suggestions" style={this.state.showSuggestions ? {} : { display: "none" }}>
           {this.state.suggestions.map((suggestion) => (
@@ -78,6 +78,4 @@ handleInputChanged = (event) => {
     );
   }
 }
-
 export default CitySearch;
-

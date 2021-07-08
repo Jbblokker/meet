@@ -1,10 +1,10 @@
 import React from 'react';
-import App from '../App';
-import CitySearch from '../CitySearch';
+import App from '../src/App';
+import CitySearch from '../src/CitySearch';
 import { mount, shallow } from 'enzyme';
 import { loadFeature, defineFeature } from 'jest-cucumber';
-import { mockData } from '../mock-data';
-import { extractLocations, getEvents } from '../api';
+import { mockData } from '../src/mock-data';
+import { extractLocations, getEvents } from '../src/api';
 
 const feature = loadFeature('./src/features/filterEventsByCity.feature');
 //feature 1 filter events by city
@@ -62,7 +62,7 @@ defineFeature(feature, test => {
       
           });
       
-          then('it will take the user to another screen with the selected city along wit , () => {
+          then('it will take the user to another screen with the selected city along with', () => {
       
           });
       
