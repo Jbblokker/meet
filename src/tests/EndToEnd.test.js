@@ -5,7 +5,8 @@ describe('show/hide and event details', () => {
   let page;
 
   beforeAll(async () => {
-    jest.setTimeout(300000);
+    jest.setTimeout(5000);
+    it('runs slow', () => {...}, 10000)
     browser = await puppeteer.launch({
       headless: false,
       sloMo: 250,
@@ -22,9 +23,9 @@ describe('show/hide and event details', () => {
   // all tests below are for feature  show/hide an event
   // scenario 1
   test('An event element is collapsed by default', async () => {
-    const browser = await puppeteer.launch();
+    // const browser = await puppeteer.launch();
 
-    const page = await browser.newPage();
+    // const page = await browser.newPage();
     await page.goto('http://localhost:3000/');
 
     await page.waitForSelector('.event');

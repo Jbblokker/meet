@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import EventList from './EventList';
-import { CitySearch } from './CitySearch';
+import CitySearch from './CitySearch';
 import { extractLocations, getEvents } from './api';
 import NumberOfEvents from './NumberOfEvents';
 

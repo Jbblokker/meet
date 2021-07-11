@@ -13,69 +13,78 @@ class CitySearch extends Component {
   // update state of city in text input
   handleInputChanged(event) {
     const { value } = event.target;
-    const { suggestions } = this.props.locations.filter((location) => {
-    return location.toUpperCase().indexOf(value.toUpperCase())> -1;});
-    setState({
+    const { location } = event.target;
+    const { suggestions } = location.filter;
+    location.filter((location,
+    location.toUpperCase().indexOf(value.toUpperCase()) > -1));
+    this.setState({
       query: value,
       suggestions,
     });
   }
 
   handleItemClicked(suggestion) {
+    const { updateEvents, numberOfEvents } = this.props;
     this.setState({
       query: suggestion,
       showSuggestions: false,
     });
 
-    this.props.updateEvents(suggestion, this.props.numberOfEvents);
+    updateEvents(suggestion, numberOfEvents);
   }
 
   listUpdate() {
-    const suggestions = this.props.locations.filter((location) { return location
-    });
+    const { locations } = this.props;
+    const suggestions = locations.filter((location) => location);
+
     this.setState({
       suggestions,
     });
   }
 
   render() {
+    const { query, showSuggestions, suggestions } = this.state;
     return (
       <div className="CitySearch">
-        <label>Select a City:</label>
+        <label htmlFor="city">
+          Select a City:
           <input
+            id="city"
             type="text"
             className="city"
-            value={this.state.query}
+            value={query}
             onChange={this.handleInputChanged}
-            placeholder='enter city here'
-            onFocus={() => { this.setState({ showSuggestions: true}) }}
-            onClick={() => { this.setState({showSuggestions: true}) }}
+            placeholder="enter city here"
+            onFocus={() => { this.setState({ showSuggestions: true }); }}
+            onClick={() => { this.setState({ showSuggestions: true }); }}
           />
-                 <div className="suggestions"/>
-
-          {this.state.suggestions.length >= 1 ?  (
-          <ul className="suggestions" style={this.state.showSuggestions ? {} : { display: "none" }}>
-          {this.state.suggestions.map((suggestion) => (
-                  <li
-                    className='matchSuggestions'
-                     key={suggestion}
-                     onClick={() => this.handleItemClicked(suggestion)}
-                  >
-                     {suggestion}
-                  </li>
-              ))}
+        </label>
+        <div className="suggestions" />
+        {suggestions.length >= 1 ? (
+          <ul className="suggestions" style={showSuggestions ? {} : { display: 'none' }}>
+            {suggestions.map((suggestion) => (
               <li
-               className='matchSuggestions' 
-               key="all" 
-               onClick={() => this.handleItemClicked("all")}>
-              <b>See all cities</b>
+                className="matchSuggestions"
+                key={suggestion}
+                onClick={() => this.handleItemClicked(suggestion)}
+              >
+                {suggestion}
               </li>
+            ))}
+            <li
+              className="matchSuggestions"
+              key="all"
+              onClick={() => this.handleItemClicked('all')}
+            >
+              <b>See all cities</b>
+            </li>
           </ul>
-          ):(
-            <div/>
-    )}
+        ) : (
+          <div />
+        )}
       </div>
     );
   }
 }
+
 export default CitySearch;
