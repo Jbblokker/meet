@@ -4,40 +4,37 @@ import App from '../App';
 import EventList from '../EventList';
 import CitySearch from '../CitySearch';
 import NumberOfEvents from '../NumberOfEvents';
+import { getEvents, extractLocations } from '../api';
 import { mockData } from '../mock-data';
-import { extractLocations, getEvents } from '../api';
-import { getCalendarEvents } from '../../auth-server/handler';
 
 describe('<App /> component', () => {
-  let AppWrapper;
-  beforeAll(() => {
-    AppWrapper = shallow(<App />);
-  });
-
   test('render list of events', () => {
+    const AppWrapper = shallow(<App />);
     expect(AppWrapper.find(EventList)).toHaveLength(1);
   });
 
   test('render CitySearch', () => {
+    const AppWrapper = shallow(<App />);
     expect(AppWrapper.find(CitySearch)).toHaveLength(1);
   });
 
-  test('render NumberOfEvents', () => {
+  test('renders the NumberOfEvents Bar', () => {
+    const AppWrapper = shallow(<App />);
     expect(AppWrapper.find(NumberOfEvents)).toHaveLength(1);
   });
 });
 
 describe('<App /> integration', () => {
-  test('App passes "events" state as prop to EventList', () => {
-    const AppWrapper = mount(<App />);
+  test('App passes "events" state as a prop to EventList', () => {
+    const AppWrapper = shallow(<App />);
     const AppEventsState = AppWrapper.state('events');
     expect(AppEventsState).not.toEqual(undefined);
     expect(AppWrapper.find(EventList).props().events).toEqual(AppEventsState);
     AppWrapper.unmount();
   });
 
-  test('App passes "locations" state as a prop to CitySearch', () => {
-    const AppWrapper = mount(<App />);
+  test('App passes the locations state as a prop to CitySearch', () => {
+    const AppWrapper = shallow(<App />);
     const AppLocationsState = AppWrapper.state('locations');
     expect(AppLocationsState).not.toEqual(undefined);
     expect(AppWrapper.find(CitySearch).props().locations).toEqual(AppLocationsState);
@@ -54,8 +51,8 @@ describe('<App /> integration', () => {
     const selectedCity = suggestions[selectedIndex];
     await CitySearchWrapper.instance().handleItemClicked(selectedCity);
     const allEvents = await getEvents();
-    const eventsToShow = allEvents.filter((event) => event.locations === selectedCity);
-    expect(AppWrapper.state('events')).simulate(eventsToShow);
+    const eventsToShow = allEvents.filter((event) => event.location === selectedCity);
+    expect(AppWrapper.state('events')).toEqual(eventsToShow);
     AppWrapper.unmount();
   });
 
@@ -64,7 +61,7 @@ describe('<App /> integration', () => {
     const suggestionItems = AppWrapper.find(CitySearch).find('.suggestions li');
     await suggestionItems.at(suggestionItems.length - 1).simulate('click');
     const allEvents = await getEvents();
-    expect(AppWrapper.state('events')).toEqual(allEvents);
+    expect(AppWrapper.state('events')).toEqual(allEvents.slice(0, 32));
     AppWrapper.unmount();
   });
 });

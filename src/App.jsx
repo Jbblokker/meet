@@ -6,8 +6,8 @@ import { extractLocations, getEvents } from './api';
 import NumberOfEvents from './NumberOfEvents';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       events: [],
       locations: [],
@@ -61,7 +61,7 @@ class App extends React.Component {
         />
         <CitySearch
           locations={locations}
-          updateEvents={this.updateEvents}
+          updateEvents={(location, eventCount) => this.updateEvents(location, eventCount)}
           numberOfEvents={numberOfEvents}
         />
         <NumberOfEvents

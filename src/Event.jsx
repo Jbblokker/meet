@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 class Event extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showMore: false,
     };
@@ -34,7 +34,7 @@ class Event extends Component {
   }
 
   render() {
-    const { event } = this.prop;
+    const { event } = this.props;
     return (
       <>
         <div className="events">
@@ -53,10 +53,7 @@ class Event extends Component {
           </p>
           <p className="description">{this.desc(event)}</p>
           const showMore =
-          <button type="button">
-            className=`showMore`onClick=
-            {() => { this.showMore(event); }}
-            {'>'}
+          <button type="button" className="showMore details-btn" onClick={() => { this.showMore(event); }}>
             {this.showText()}
           </button>
         </div>

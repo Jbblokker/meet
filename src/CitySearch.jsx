@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class CitySearch extends Component {
-  constructor() {
-    super();
+class CitySearch extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       query: '',
       suggestions: [],
@@ -11,12 +11,12 @@ class CitySearch extends Component {
   }
 
   // update state of city in text input
-  handleInputChanged(event) {
+  handleInputChanged = (event) => {
     const { value } = event.target;
-    const { location } = event.target;
-    const { suggestions } = location.filter;
-    location.filter((location,
-    location.toUpperCase().indexOf(value.toUpperCase()) > -1));
+    const { locations } = this.props;
+    const suggestions = locations.filter(
+      (location) => location.toUpperCase().indexOf(value.toUpperCase()) > -1,
+    );
     this.setState({
       query: value,
       suggestions,
@@ -24,13 +24,13 @@ class CitySearch extends Component {
   }
 
   handleItemClicked(suggestion) {
-    const { updateEvents, numberOfEvents } = this.props;
+    // const { updateEvents, numberOfEvents } = this.props;
     this.setState({
       query: suggestion,
       showSuggestions: false,
     });
 
-    updateEvents(suggestion, numberOfEvents);
+    // updateEvents(suggestion, numberOfEvents);
   }
 
   listUpdate() {
@@ -53,7 +53,7 @@ class CitySearch extends Component {
             type="text"
             className="city"
             value={query}
-            onChange={this.handleInputChanged}
+            onChange={(e) => this.handleInputChanged(e)}
             placeholder="enter city here"
             onFocus={() => { this.setState({ showSuggestions: true }); }}
             onClick={() => { this.setState({ showSuggestions: true }); }}

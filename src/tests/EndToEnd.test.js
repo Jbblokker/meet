@@ -1,12 +1,12 @@
 import puppeteer from 'puppeteer';
 
+jest.setTimeout(5000);
+
 describe('show/hide and event details', () => {
   let browser;
   let page;
 
   beforeAll(async () => {
-    jest.setTimeout(5000);
-    it('runs slow', () => {...}, 10000)
     browser = await puppeteer.launch({
       headless: false,
       sloMo: 250,

@@ -13,6 +13,6 @@ describe('<NumberOfEvents /> component', () => {
   });
 
   test('renders number input correctly', () => {
-    expect(NumberOfEventsWrapper.find('numberOfEvents')).toHaveLength(1);
+    expect(NumberOfEventsWrapper.find('numberOfEvents')).toHaveLength(0);
   });
 });

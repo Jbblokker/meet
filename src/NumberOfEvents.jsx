@@ -1,8 +1,8 @@
 import React from 'react';
 
-const NumberOfEvents = (prop) => {
-  const { numberOfEvents } = prop;
-  const { setNumberOfEvents } = prop;
+function NumberOfEvents(props) {
+  const { numberOfEvents } = props;
+  const { setNumberOfEvents } = props;
 
   const handleChange = (event) => {
     if (event.target.value === '') {
@@ -27,6 +27,6 @@ const NumberOfEvents = (prop) => {
       </form>
     </div>
   );
-};
+}
 
 export default NumberOfEvents;
