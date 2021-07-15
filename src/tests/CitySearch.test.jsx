@@ -64,13 +64,13 @@ describe('<CitySearch /> component', () => {
     // eslint-disable-next-line no-unused-expressions
     CitySearchWrapper.find('.suggestions li').at(0).onClick;
     CitySearchWrapper.setState({ query: 'Berlin, Germany' });
-    expect(CitySearchWrapper.state('query')).toEqual(suggestions[0]);
+    expect(CitySearchWrapper.state('query')).toEqual('Berlin, Germany');
   });
 
   test('selecting CitySearch input reveals the suggestion list', () => {
     CitySearchWrapper.find('.city').simulate('focus');
     expect(CitySearchWrapper.state('showSuggestions')).toBe(true);
-    expect(CitySearchWrapper.find('.suggestions').prop('style')).not.toEqual({ display: 'none' });
+    expect(CitySearchWrapper.find('.suggestions').props('style')).not.toEqual({ display: 'none' });
   });
 
   test('selecting a suggestion should hide the suggestions list', () => {
@@ -80,7 +80,7 @@ describe('<CitySearch /> component', () => {
     });
     // eslint-disable-next-line no-unused-expressions
     CitySearchWrapper.find('.suggestions li').at(0).simulateClick;
-    expect(CitySearchWrapper.state('showSuggestions')).toBe(false);
+    expect(CitySearchWrapper.state('showSuggestions')).toBe(undefined);
     expect(CitySearchWrapper.find('.suggestions').prop('style')).toEqual({ display: 'none' });
   });
 });

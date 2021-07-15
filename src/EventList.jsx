@@ -1,7 +1,7 @@
 import React from 'react';
 import Event from './Event';
 
-const EventList = ({ events }) => {
+const EventList = ({ events }) => (
   <div>
     <ul className="EventList">
       {events.map((event) => (
@@ -10,7 +10,7 @@ const EventList = ({ events }) => {
         </li>
       ))}
     </ul>
-  </div>;
-};
+  </div>
+);
 
 export default EventList;

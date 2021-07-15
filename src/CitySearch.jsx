@@ -29,8 +29,6 @@ class CitySearch extends React.Component {
       query: suggestion,
       showSuggestions: false,
     });
-
-    // updateEvents(suggestion, numberOfEvents);
   }
 
   listUpdate() {
@@ -55,14 +53,17 @@ class CitySearch extends React.Component {
             value={query}
             onChange={(e) => this.handleInputChanged(e)}
             placeholder="enter city here"
-            onFocus={() => { this.setState({ showSuggestions: true }); }}
-            onClick={() => { this.setState({ showSuggestions: true }); }}
+            onFocus={() => {
+              this.setState({ showSuggestions: true });
+            }}
+            onClick={() => {
+              this.setState({ showSuggestions: true });
+            }}
           />
         </label>
-        <div className="suggestions" />
-        {suggestions.length >= 1 ? (
-          <ul className="suggestions" style={showSuggestions ? {} : { display: 'none' }}>
-            {suggestions.map((suggestion) => (
+        <ul className="suggestions" style={showSuggestions ? {} : { display: 'none' }}>
+          {(suggestions.length >= 1)
+            ? suggestions.map((suggestion) => (
               <li
                 className="matchSuggestions"
                 key={suggestion}
@@ -70,18 +71,16 @@ class CitySearch extends React.Component {
               >
                 {suggestion}
               </li>
-            ))}
-            <li
-              className="matchSuggestions"
-              key="all"
-              onClick={() => this.handleItemClicked('all')}
-            >
-              <b>See all cities</b>
-            </li>
-          </ul>
-        ) : (
-          <div />
-        )}
+            ))
+            : null}
+          <li
+            className="matchSuggestions"
+            key="all"
+            onClick={() => this.handleItemClicked('all')}
+          >
+            <b>See all cities</b>
+          </li>
+        </ul>
       </div>
     );
   }
