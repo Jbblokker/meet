@@ -47,6 +47,7 @@ input[type="number"] {
   max-width: 300px;
   margin: auto;
   position: relative;
+  
 }
 
 .suggestions {
@@ -93,6 +94,7 @@ input[type="number"] {
   border-radius: 4px;
   outline: none;
   cursor: pointer;
+  text-align: center;
 }
 
 .name {
@@ -112,6 +114,7 @@ input[type="number"] {
 
 .description {
   overflow-x: hidden;
+  text-align: center;
 }
 
 .numberOfEvents {
@@ -126,6 +129,11 @@ input[type="number"] {
   grid-gap: 20px;
   padding: 20px;
   font-family: sans-serif;
+  text-align: center;
+}
+
+.showMore details-btn{
+  text-align: center;
 }
 
 .Alert {

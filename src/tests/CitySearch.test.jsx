@@ -48,6 +48,8 @@ describe('<CitySearch /> component', () => {
   });
 
   test('suggestion list match the query when changed', () => {
+    locations = extractLocations(mockData);
+    CitySearchWrapper = shallow(<CitySearch locations={locations} updateEvents={() => {}} />);
     CitySearchWrapper.setState({ query: '', suggestions: [] });
     CitySearchWrapper.find('.city').simulate('change', {
       target: { value: 'Berlin' },

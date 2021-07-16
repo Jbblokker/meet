@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css';
 
 class Event extends Component {
   constructor(props) {
@@ -52,7 +53,6 @@ class Event extends Component {
             {event.location}
           </p>
           <p className="description">{this.desc(event)}</p>
-          const showMore =
           <button type="button" className="showMore details-btn" onClick={() => { this.showMore(event); }}>
             {this.showText()}
           </button>

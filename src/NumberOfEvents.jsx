@@ -1,29 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './App.css';
 
 function NumberOfEvents(props) {
-  const { numberOfEvents } = props;
-  const { setNumberOfEvents } = props;
+  // eslint-disable-next-line react/destructuring-assignment
+  const { eventsToBeSeen, setEventsToBeSeen } = useState(props.eventsToBeSeen);
 
   const handleChange = (event) => {
     if (event.target.value === '') {
-      setNumberOfEvents(event.target.value);
+      setEventsToBeSeen(event.target.value);
+      props.updateNumber('noNumberEntered');
     } else {
-      setNumberOfEvents(event.target.value);
+      setEventsToBeSeen(event.target.value);
+      props.updateNumber(event.target.value);
     }
   };
   return (
     <div className="numberOfEvents">
       <form>
-        <label htmlFor="labelInput">
-          <input type="text" id="labelInput" />
-          Please Select an amount of Events:
+        <label htmlFor="number">
+          Number of Events:
+          <input
+            type="number"
+            id="number"
+            className="EventsNumber"
+            value={eventsToBeSeen}
+            placeholder="Search by Number"
+            onChange={handleChange}
+          />
         </label>
-        <input
-          type="number"
-          className="EventsNumber"
-          value={numberOfEvents}
-          onChange={handleChange}
-        />
       </form>
     </div>
   );
