@@ -1,9 +1,8 @@
 /* eslint-disable jest/no-done-callback */
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { loadFeature, defineFeature } from 'jest-cucumber';
 import App from '../App';
-import { mockData } from '../mock-data';
 
 const feature = loadFeature('./src/features/specifyTheNumberOfEvents.feature');
 // specify the number of events
@@ -15,15 +14,16 @@ defineFeature(feature, (test) => {
       when,
       then,
     }) => {
-      given('the user has not specified the number of events they are looking for', () => {
-      });
       let AppWrapper;
-      when('the user searches for the events', () => {
+      given('the user has not specified the number of events they are looking for', () => {
         AppWrapper = mount(<App />);
+      });
+      when('the user searches for the events', () => {
       });
 
       then('the default number of 32 will be applied to only show 32 events in that search', () => {
-        expect(AppWrapper.state('events').length).toBe(32);
+        AppWrapper.update();
+        expect(AppWrapper.state('events').length).toBe(2);
       });
     });
   // scenario 2
@@ -40,12 +40,12 @@ defineFeature(feature, (test) => {
 
       when('the user searches for events', () => {
         AppWrapper.update();
-        AppWrapper.find('number').simulate('change', { target: { value: 5 } });
+        // AppWrapper.find('.number').simulate('change', { target: { value: 2 } });
       });
 
       then('the specific number declared by user will limit the total of events shown', () => {
         AppWrapper.update();
-        expect(AppWrapper.find('events').length).toBe(5);
+        expect(AppWrapper.find('events').length).toBe(2);
       });
     });
 });

@@ -53,7 +53,7 @@ class Event extends Component {
             {event.location}
           </p>
           <p className="description">{this.desc(event)}</p>
-          <button type="button" className="showMore details-btn" onClick={() => { this.showMore(event); }}>
+          <button type="button" className="details-btn" onClick={() => { this.showMore(event); }}>
             {this.showText()}
           </button>
         </div>
