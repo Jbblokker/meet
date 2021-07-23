@@ -3,7 +3,7 @@ import './App.css';
 
 function NumberOfEvents(props) {
   // eslint-disable-next-line react/destructuring-assignment
-  const { eventsToBeSeen, setEventsToBeSeen } = useState(props.eventsToBeSeen);
+  const [eventsToBeSeen, setEventsToBeSeen] = useState(props.eventsToBeSeen);
 
   const handleChange = (event) => {
     if (event.target.value === '') {
