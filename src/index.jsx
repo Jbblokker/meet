@@ -1,11 +1,14 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
+import * as atatus from 'atatus-spa';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import reportWebVitals from './reportWebVitals';
+
+atatus.config('f9319eacc10c4faf8163f7c52208cc34').install();
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,3 +26,4 @@ serviceWorkerRegistration.unregister();
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+atatus.notify(new Error('Test Atatus Setup'));
