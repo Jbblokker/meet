@@ -40,12 +40,13 @@ defineFeature(feature, (test) => {
 
       when('the user searches for events', () => {
         AppWrapper.update();
-        // AppWrapper.find('.number').simulate('change', { target: { value: 2 } });
+        const numberOfEvents = { target: { value: 2 } };
+        AppWrapper.find('.numberOfEvents').simulate('change', numberOfEvents);
       });
 
       then('the specific number declared by user will limit the total of events shown', () => {
         AppWrapper.update();
-        expect(AppWrapper.find('events').length).toBe(2);
+        expect(AppWrapper.find('.events').length).toBe(2);
       });
     });
 });
