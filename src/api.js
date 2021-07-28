@@ -75,6 +75,13 @@ export const getEvents = async () => {
   if (window.location.href.startsWith('http://localhost')) {
     return mockData;
   }
+  if (!navigator.onLine) {
+    const data = localStorage.getItem('lastEvents');
+    // eslint-disable-next-line no-undef
+    NProgress.done();
+    // eslint-disable-next-line no-undef
+    return data ? JSON.parse(events).events : [];
+  }
 
   const token = await getAccessToken();
   if (token) {
