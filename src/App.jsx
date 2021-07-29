@@ -1,10 +1,11 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import { extractLocations, getEvents } from './api';
 import NumberOfEvents from './NumberOfEvents';
-import { ErrorAlert } from './Alert';
+import { OfflineAlert } from './Alert';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +14,8 @@ class App extends React.Component {
       events: [],
       locations: [],
       numberOfEvents: 32,
+      // eslint-disable-next-line react/no-unused-state
+      updateNumberOfEvents: 32,
     };
   }
 
@@ -24,6 +27,11 @@ class App extends React.Component {
         this.setState({
           events: events.slice(0, numberOfEvents),
           locations: extractLocations(events),
+          offlineText: 'You are viewing this app offline.',
+        });
+      } else {
+        this.setState({
+          offlineText: '',
         });
       }
     });
@@ -50,15 +58,17 @@ class App extends React.Component {
 
   render() {
     const {
+      defaultNumberOfEvents,
       events,
       locations,
       numberOfEvents,
-      updateNumberEvents,
     } = this.state;
     return (
       <div className="App">
+        <OfflineAlert text={this.state.offlineText} />
+
         <EventList
-          events={events}
+          events={events.slice(0, numberOfEvents)}
         />
         <CitySearch
           locations={locations}
@@ -67,7 +77,8 @@ class App extends React.Component {
         />
         <NumberOfEvents
           numberOfEvents={numberOfEvents}
-          updateEvents={updateNumberEvents}
+          defaultNumberOfEvents={defaultNumberOfEvents}
+          updateEvents={(number) => this.setState({ numberOfEvents: number })}
         />
       </div>
     );

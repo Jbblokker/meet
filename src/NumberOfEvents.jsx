@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ErrorAlert } from './Alert';
 
 import './App.css';
 
 function NumberOfEvents(props) {
-  // eslint-disable-next-line react/destructuring-assignment
-  const [eventsToBeSeen, setEventsToBeSeen] = useState(props.eventsToBeSeen);
   const { errorText } = props;
 
   const handleChange = (event) => {
     if (event.target.value === '') {
-      setEventsToBeSeen(event.target.value);
-      props.updateEvents('noNum');
+      props.updateEvents('32');
     } else {
-      setEventsToBeSeen(event.target.value);
-      props.updateEvents(event.target.value);
+      props.updateEvents(Number(event.target.value));
     }
   };
 
@@ -28,7 +24,6 @@ function NumberOfEvents(props) {
             type="number"
             id="number"
             className="EventsNumber"
-            value={eventsToBeSeen}
             placeholder="Search by Number"
             onChange={handleChange}
           />
