@@ -96,3 +96,5 @@ export const getEvents = async () => {
     return result.data.events;
   }
 };
+
+export { checkToken };

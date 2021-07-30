@@ -1,11 +1,15 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import './App.css';
+// import { tsUndefinedKeyword } from '@babel/types';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
-import { extractLocations, getEvents } from './api';
+import {
+  extractLocations, getEvents, checkToken, getAccessToken,
+} from './api';
 import NumberOfEvents from './NumberOfEvents';
 import { OfflineAlert } from './Alert';
+import WelcomeScreen from './WelcomeScreen';
 
 class App extends React.Component {
   constructor(props) {
@@ -14,24 +18,42 @@ class App extends React.Component {
       events: [],
       locations: [],
       numberOfEvents: 32,
+      showWelcomeScreen: undefined,
       // eslint-disable-next-line react/no-unused-state
       updateNumberOfEvents: 32,
+      offlineText: '',
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { numberOfEvents } = this.state;
     this.mounted = true;
+    const accessToken = localStorage.getItem('access_token');
+    const isTokenValid = !(await checkToken(accessToken)).error;
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get('code');
+    if (!navigator.online) {
+      this.setState({
+        offlineText: 'You are viewing this app offline.',
+        showWelcomeScreen: !(code || isTokenValid),
+      });
+      if ((code || isTokenValid) && this.mounted) {
+        getEvents().then((events) => {
+          if (this.mounted) {
+            this.setState({ events, locations: extractLocations(events) });
+          }
+        });
+      }
+    } else {
+      this.setState({
+        offlineText: '',
+      });
+    }
     getEvents().then((events) => {
       if (this.mounted) {
         this.setState({
           events: events.slice(0, numberOfEvents),
           locations: extractLocations(events),
-          offlineText: 'You are viewing this app offline.',
-        });
-      } else {
-        this.setState({
-          offlineText: '',
         });
       }
     });
@@ -57,6 +79,7 @@ class App extends React.Component {
   }
 
   render() {
+    if (this.state.showWelcomeScree === undefined) return <div className="App" />;
     const {
       defaultNumberOfEvents,
       events,
@@ -80,6 +103,12 @@ class App extends React.Component {
           defaultNumberOfEvents={defaultNumberOfEvents}
           updateEvents={(number) => this.setState({ numberOfEvents: number })}
         />
+        {/* Other components such as CitySearch, EventList,...etc */}
+        <WelcomeScreen
+          showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => { getAccessToken(); }}
+        />
+
       </div>
     );
   }
