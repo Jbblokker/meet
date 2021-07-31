@@ -1,9 +1,9 @@
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/button-has-type */
 import React from 'react';
 import './WelcomeScreen.css';
 
 function WelcomeScreen(props) {
+  // eslint-disable-next-line react/destructuring-assignment
   return props.showWelcomeScreen
     ? (
       <div className="WelcomeScreen">
@@ -13,7 +13,7 @@ function WelcomeScreen(props) {
           full-stack
           developers
         </h4>
-        <div className="button_cont" align="center">
+        <div className="login-button" align="center">
           <div className="google-btn">
             <div className="google-icon-wrapper">
               <img
@@ -30,7 +30,6 @@ o.svg"
             >
               <b>Sign in with google</b>
             </button>
-            Page 1
           </div>
         </div>
         <a
