@@ -31,6 +31,7 @@ class ErrorAlert extends Alert {
   constructor(props) {
     super(props);
     this.color = 'red';
+    this.text = 'please choose a number between 1 and 32.';
   }
 }
 

@@ -1,7 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import './App.css';
-// import { tsUndefinedKeyword } from '@babel/types';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import {
@@ -18,10 +17,9 @@ class App extends React.Component {
       events: [],
       locations: [],
       numberOfEvents: 32,
-      showWelcomeScreen: undefined,
+      showWelcomeScreen: false,
       // eslint-disable-next-line react/no-unused-state
       updateNumberOfEvents: 32,
-      offlineText: '',
     };
   }
 
@@ -29,12 +27,12 @@ class App extends React.Component {
     const { numberOfEvents } = this.state;
     this.mounted = true;
     const accessToken = localStorage.getItem('access_token');
-    const isTokenValid = !(await checkToken(accessToken)).error;
+    const isTokenValid = (await checkToken(accessToken)).error;
     const searchParams = new URLSearchParams(window.location.search);
     const code = searchParams.get('code');
     if (!navigator.online) {
       this.setState({
-        offlineText: 'You are viewing this app offline.',
+        offlineText: '',
         showWelcomeScreen: !(code || isTokenValid),
       });
       if ((code || isTokenValid) && this.mounted) {
@@ -46,7 +44,7 @@ class App extends React.Component {
       }
     } else {
       this.setState({
-        offlineText: '',
+        offlineText: 'You are viewing this app offline.',
       });
     }
     getEvents().then((events) => {
@@ -79,13 +77,19 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.showWelcomeScree === undefined) return <div className="App" />;
     const {
       defaultNumberOfEvents,
       events,
       locations,
       numberOfEvents,
     } = this.state;
+    if (this.state.showWelcomeScreen) {
+      return (
+        <div className="App">
+          <WelcomeScreen getAccessToken={() => { getAccessToken(); }} />
+        </div>
+      );
+    }
     return (
       <div className="App">
         <OfflineAlert text={this.state.offlineText} />
@@ -104,11 +108,6 @@ class App extends React.Component {
           updateEvents={(number) => this.setState({ numberOfEvents: number })}
         />
         {/* Other components such as CitySearch, EventList,...etc */}
-        <WelcomeScreen
-          showWelcomeScreen={this.state.showWelcomeScreen}
-          getAccessToken={() => { getAccessToken(); }}
-        />
-
       </div>
     );
   }

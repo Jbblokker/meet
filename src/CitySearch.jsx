@@ -1,7 +1,7 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
-import './App.css';
 import { InfoAlert } from './Alert';
 
 class CitySearch extends React.Component {
@@ -10,7 +10,7 @@ class CitySearch extends React.Component {
     this.state = {
       query: '',
       suggestions: [],
-      showSuggestions: undefined,
+      showSuggestions: false,
     };
   }
 
@@ -36,13 +36,13 @@ class CitySearch extends React.Component {
   };
 
   handleItemClicked(suggestion) {
-    // const { updateEvents, numberOfEvents } = this.props;
     this.setState({
       query: suggestion,
-      suggestions: [],
+      // suggestions: [],
       showSuggestions: false,
       infoText: '',
     });
+    this.props.updateEvents(suggestion, 0);
   }
 
   listUpdate() {
@@ -59,23 +59,21 @@ class CitySearch extends React.Component {
     return (
       <div className="CitySearch">
         <InfoAlert text={this.state.infoText} />
-        <label htmlFor="city">
-          Select a City:
-          <input
-            id="city"
-            type="text"
-            className="city"
-            value={query}
-            onChange={(e) => this.handleInputChanged(e)}
-            placeholder="enter city here"
-            onFocus={() => {
-              this.setState({ showSuggestions: true });
-            }}
-            onClick={() => {
-              this.setState({ showSuggestions: true });
-            }}
-          />
-        </label>
+        <label htmlFor="CitySearch">Select a City:</label>
+
+        <input
+          type="text"
+          className="city"
+          value={query}
+          onChange={(e) => this.handleInputChanged(e)}
+          placeholder="enter city here"
+          onFocus={() => {
+            this.setState({ showSuggestions: true });
+          }}
+          onClick={() => {
+            this.setState({ showSuggestions: true });
+          }}
+        />
         <ul className="suggestions" style={showSuggestions ? {} : { display: 'none' }}>
           {(suggestions.length >= 1)
             ? suggestions.map((suggestion) => (

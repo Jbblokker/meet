@@ -4,8 +4,7 @@ import { ErrorAlert } from './Alert';
 import './App.css';
 
 function NumberOfEvents(props) {
-  const { errorText } = props;
-
+  const { text } = props;
   const handleChange = (event) => {
     if (event.target.value === '') {
       props.updateEvents('32');
@@ -16,7 +15,7 @@ function NumberOfEvents(props) {
 
   return (
     <div className="numberOfEvents">
-      <ErrorAlert text={errorText} />
+      <ErrorAlert text={text} />
       <form>
         <label htmlFor="number">
           Number of Events:

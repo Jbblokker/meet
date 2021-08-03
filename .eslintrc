@@ -20,6 +20,6 @@
 
     },
     "parser": "babel-eslint",
-    "plugins": ["jest"]
+    "plugins": ["jest", "html"]
 
   }

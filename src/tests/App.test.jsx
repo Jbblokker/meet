@@ -51,6 +51,7 @@ describe('<App /> integration', () => {
     const selectedCity = suggestions[selectedIndex];
     await CitySearchWrapper.instance().handleItemClicked(selectedCity);
     const allEvents = await getEvents();
+    // eslint-disable-next-line no-unused-vars
     const eventsToShow = allEvents.filter((event) => event.location === selectedCity);
     expect(AppWrapper.state('events')).toHaveLength(2);
     AppWrapper.unmount();
