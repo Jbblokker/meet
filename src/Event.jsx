@@ -38,7 +38,7 @@ class Event extends Component {
     const { event } = this.props;
     return (
       <>
-        <div className="events">
+        <div className="event">
           <h2>{event.summary}</h2>
           <p>
             <b>Creator:</b>
