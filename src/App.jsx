@@ -10,7 +10,7 @@ import {
   extractLocations, getEvents, checkToken, getAccessToken,
 } from './api';
 import NumberOfEvents from './NumberOfEvents';
-import { OfflineAlert } from './Alert';
+import { OfflineAlert, ErrorAlert } from './Alert';
 import WelcomeScreen from './WelcomeScreen';
 import EventGenre from './EventGenre';
 
@@ -49,6 +49,7 @@ class App extends React.Component {
     } else {
       this.setState({
         offlineText: 'You are viewing this app offline.',
+        errorText: 'please choose a correct number.',
       });
     }
     getEvents().then((events) => {
@@ -76,15 +77,13 @@ class App extends React.Component {
   };
 
   updateEvents(location, eventCount) {
-    const { numberOfEvents } = this.state;
     getEvents().then((events) => {
       const locationEvents = location === 'all'
-        ? events.slice(0, numberOfEvents)
+        ? events.slice(0, eventCount)
         : events.filter((event) => event.location === location);
       if (this.mounted) {
         this.setState({
           events: locationEvents,
-          numberOfEvents: eventCount,
         });
       }
     });
@@ -108,7 +107,8 @@ class App extends React.Component {
     }
     return (
       <div className="App">
-        <OfflineAlert text={this.state.offlineText} />
+        {this.state.offlineText ? <OfflineAlert text={this.state.offLineText} /> : null}
+        {this.state.errorText ? <ErrorAlert text={this.state.errorText} /> : null}
 
         <CitySearch
           locations={locations}
@@ -118,10 +118,10 @@ class App extends React.Component {
         <NumberOfEvents
           numberOfEvents={numberOfEvents}
           defaultNumberOfEvents={defaultNumberOfEvents}
-          updateEvents={(number) => this.setState({ numberOfEvents: number })}
-        />
-        <EventList
-          events={events.slice(0, numberOfEvents)}
+          updateEvents={(number) => {
+            if (number < 0) this.setState({ errorText: 'Please choose a valid number' });
+            else this.setState({ numberOfEvents: number, errorText: '' });
+          }}
         />
         <h4>Events in each city</h4>
         <div className="data-vis-wrapper">
@@ -141,6 +141,9 @@ class App extends React.Component {
             </ScatterChart>
           </ResponsiveContainer>
         </div>
+        <EventList
+          events={events.slice(0, numberOfEvents)}
+        />
       </div>
     );
   }

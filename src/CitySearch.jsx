@@ -42,7 +42,7 @@ class CitySearch extends React.Component {
       showSuggestions: false,
       infoText: '',
     });
-    this.props.updateEvents(suggestion, 0);
+    this.props.updateEvents(suggestion, this.props.numberOfEvents);
   }
 
   listUpdate() {
@@ -58,9 +58,9 @@ class CitySearch extends React.Component {
     const { query, showSuggestions, suggestions } = this.state;
     return (
       <div className="CitySearch">
-        <InfoAlert text={this.state.infoText} />
+        <p> </p>
         <label htmlFor="CitySearch">Select a City:</label>
-
+        <InfoAlert text={this.state.infoText} />
         <input
           type="text"
           className="city"
