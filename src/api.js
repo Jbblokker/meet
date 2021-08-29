@@ -79,7 +79,7 @@ export const getEvents = async () => {
     // eslint-disable-next-line no-undef
     NProgress.done();
     // eslint-disable-next-line no-undef
-    return data ? JSON.parse(events).events : [];
+    return data ? JSON.parse(data).events : [];
   }
 
   const token = await getAccessToken();
